@@ -29,184 +29,209 @@ pip install -r scripts/requirements.txt
 
 ## Gallery
 
-### 6 Built-in Styles
+Showcase of various scene types. All examples use `--steps 28`.
 
-All examples below use `--steps 28` with text overlay at `bottom` position.
+### Animals
 
 <table>
 <tr>
 <td width="50%">
 
-**Tech Style**
+**Cat** (with text overlay)
 
-Deep blue and purple particles, suitable for AI/programming topics.
-
-![Tech Style](outputs/showcase/01-tech.png)
+![Cat](outputs/showcase/01-animal-cat.png)
 
 **Prompt:**
 ```
-masterpiece, best quality, abstract technology background, 
-glowing digital particles and flowing light streaks, 
-deep blue and purple color palette, volumetric light, 
-depth of field, futuristic, clean composition, no text, 4k
+a fluffy orange tabby cat sitting on a wooden windowsill,
+soft natural light, bokeh background, photorealistic, 4k
 ```
 
-**Title:** AI Agent Engineering  
-**Subtitle:** 从 ReAct 到多智能体协作  
-**Seed:** 101
+**Title:** Feline Grace  
+**Subtitle:** Portrait of a curious cat  
+**Seed:** 101  
+**Position:** bottom
 
 </td>
 <td width="50%">
 
-**Cosmic Style**
+**Lion** (background only)
 
-Deep space nebula, suitable for large-scale AI trends.
-
-![Cosmic Style](outputs/showcase/02-cosmic.png)
+![Lion](outputs/showcase/02-animal-lion.png)
 
 **Prompt:**
 ```
-masterpiece, best quality, cosmic nebula background, 
-swirling galaxy dust and distant stars, 
-deep navy blue and soft teal color palette, 
-cinematic lighting, god rays, ethereal atmosphere, no text, 4k
+majestic male lion with flowing mane, african savanna at golden hour,
+warm sunset light, shallow depth of field, wildlife photography, 4k
 ```
 
-**Title:** Model Context Protocol  
-**Subtitle:** AI 工具的标准接口  
 **Seed:** 202
 
 </td>
 </tr>
+</table>
+
+### Landscape
+
+<table>
 <tr>
 <td width="50%">
 
-**Minimal Style**
+**Mountain** (with text overlay)
 
-Clean geometric gradients, suitable for tutorials and guides.
-
-![Minimal Style](outputs/showcase/03-minimal.png)
+![Mountain](outputs/showcase/03-landscape-mountain.png)
 
 **Prompt:**
 ```
-masterpiece, best quality, minimalist geometric abstract background, 
-smooth gradient shapes and clean lines, 
-muted blue and slate gray color palette, soft ambient light, 
-clean modern design, no text, 4k
+snow-capped mountain peaks at sunrise, dramatic clouds,
+alpine lake reflection, vibrant orange and pink sky,
+landscape photography, 4k
 ```
 
-**Title:** RAG 入门指南  
-**Subtitle:** 检索增强生成技术详解  
-**Seed:** 303
+**Title:** Alpine Heights  
+**Subtitle:** Journey to the Summit  
+**Seed:** 303  
+**Position:** bottom
 
 </td>
 <td width="50%">
 
-**Cyberpunk Style**
+**Ocean** (background only)
 
-Neon grids and dark atmosphere, suitable for engineering practices.
-
-![Cyberpunk Style](outputs/showcase/04-cyberpunk.png)
+![Ocean](outputs/showcase/04-landscape-ocean.png)
 
 **Prompt:**
 ```
-masterpiece, best quality, cyberpunk abstract background, 
-neon grid lines and glowing circuit patterns, 
-electric purple and hot pink color palette, 
-dramatic rim light, dark atmosphere, high contrast, no text, 4k
+tropical beach with turquoise water, white sand,
+palm trees swaying, blue sky with fluffy clouds,
+paradise island, 4k
 ```
 
-**Title:** Neural Networks  
-**Subtitle:** Deep Learning Architecture  
 **Seed:** 404
 
 </td>
 </tr>
+</table>
+
+### City & Urban
+
+<table>
 <tr>
 <td width="50%">
 
-**Nature Style**
+**Skyline** (with text overlay)
 
-Soft organic curves, suitable for sustainability topics.
-
-![Nature Style](outputs/showcase/05-nature.png)
+![City Skyline](outputs/showcase/05-city-skyline.png)
 
 **Prompt:**
 ```
-masterpiece, best quality, organic abstract background, 
-flowing translucent leaves and botanical curves, 
-soft emerald green and warm ivory color palette, 
-diffused natural light, shallow depth of field, serene, no text, 4k
+modern city skyline at blue hour, skyscrapers with illuminated windows,
+reflections on river, cinematic composition,
+architectural photography, 4k
 ```
 
-**Title:** 可持续AI发展  
-**Subtitle:** 绿色计算与环境保护  
-**Seed:** 505
+**Title:** Urban Pulse  
+**Subtitle:** 夜色中的现代都市  
+**Seed:** 505  
+**Position:** bottom
 
 </td>
 <td width="50%">
 
-**Warm Style**
+**Street** (background only)
 
-Golden rays and energetic vibes, suitable for trends and insights.
-
-![Warm Style](outputs/showcase/06-warm.png)
+![City Street](outputs/showcase/06-city-street.png)
 
 **Prompt:**
 ```
-masterpiece, best quality, warm abstract background, 
-golden light rays and soft bokeh spheres, 
-amber orange and deep gold color palette, 
-glowing backlight, haze effect, energetic, uplifting, no text, 4k
+rainy city street at night, neon signs reflecting on wet pavement,
+bokeh lights, cyberpunk aesthetic, moody atmosphere, 4k
 ```
 
-**Title:** 2026 AI 趋势  
-**Subtitle:** 年度技术发展观察  
 **Seed:** 606
 
 </td>
 </tr>
 </table>
 
-### Background Only (No Text Overlay)
-
-Pure background without text overlay - perfect for wallpapers or when text will be added later in other tools.
-
-![Background Only](outputs/showcase/07-background-only.png)
-
-**Prompt:**
-```
-masterpiece, best quality, abstract flowing light ribbons, 
-glowing particles in motion, blue cyan and purple gradient, 
-cinematic depth, volumetric light, no text, 4k
-```
-
-**Seed:** 707 | **Steps:** 28
-
-### Text Position Options
-
-Text overlay supports three positions: `bottom` (default), `center`, and `top`.
+### Science Fiction
 
 <table>
 <tr>
 <td width="50%">
 
-**Center Position**
+**Space** (with text overlay)
 
-![Center Position](outputs/showcase/08-position-center.png)
+![Space](outputs/showcase/07-scifi-space.png)
 
-**Position:** `center`  
-**Seed:** 808
+**Prompt:**
+```
+astronaut floating in space with earth in background,
+stunning nebula and stars, cosmic vista,
+cinematic lighting, science fiction, 4k
+```
+
+**Title:** Beyond Earth  
+**Subtitle:** Exploring the Cosmos  
+**Seed:** 707  
+**Position:** center
 
 </td>
 <td width="50%">
 
-**Top Position**
+**Robot** (background only)
 
-![Top Position](outputs/showcase/09-position-top.png)
+![Robot](outputs/showcase/08-scifi-robot.png)
 
-**Position:** `top`  
-**Seed:** 909
+**Prompt:**
+```
+futuristic humanoid robot with glowing blue eyes,
+sleek metallic surface, high-tech laboratory background,
+dramatic lighting, sci-fi concept art, 4k
+```
+
+**Seed:** 808
+
+</td>
+</tr>
+</table>
+
+### Vehicles & Food
+
+<table>
+<tr>
+<td width="50%">
+
+**Sports Car** (with text overlay)
+
+![Sports Car](outputs/showcase/09-vehicle-sports-car.png)
+
+**Prompt:**
+```
+red luxury sports car on coastal highway, motion blur,
+golden hour lighting, dramatic sky, automotive photography, 4k
+```
+
+**Title:** Speed Demon  
+**Subtitle:** Pure Performance  
+**Seed:** 909  
+**Position:** top
+
+</td>
+<td width="50%">
+
+**Coffee** (background only)
+
+![Coffee](outputs/showcase/10-food-coffee.png)
+
+**Prompt:**
+```
+steaming cup of latte art coffee on rustic wooden table,
+morning light through window, cozy cafe atmosphere,
+food photography, 4k
+```
+
+**Seed:** 1010
 
 </td>
 </tr>
@@ -216,39 +241,64 @@ Text overlay supports three positions: `bottom` (default), `center`, and `top`.
 
 ## Single Image
 
-```bash
-python3 scripts/generate_image.py \
-	--title "AI Agent Engineering" \
-	--subtitle "From ReAct to Multi-Agent" \
-	--prompt "abstract glowing AI network, blue and cyan particles" \
-	--output "outputs/agent-cover.png" \
-	--steps 28 \
-	--seed 42
-```
-
-`--title` and `--subtitle` are optional.
-
-- With `--title`: generates image + text overlay.
-- Without `--title`: generates background image only.
-
-Background-only example:
+Basic usage:
 
 ```bash
 python3 scripts/generate_image.py \
-	--prompt "abstract flowing light ribbons, blue and cyan particles" \
-	--output "outputs/background-only.png"
+	--prompt "a majestic lion in african savanna, golden hour" \
+	--output "outputs/lion.png"
 ```
+
+With text overlay:
+
+```bash
+python3 scripts/generate_image.py \
+	--prompt "modern city skyline at night, neon lights" \
+	--title "Urban Pulse" \
+	--subtitle "Modern Architecture" \
+	--output "outputs/city.png" \
+	--position bottom
+```
+
+`--title` and `--subtitle` are optional. Without `--title`, generates background image only.
 
 ## Batch Mode
 
-Edit `scripts/jobs.example.json`, then run:
+Create a jobs JSON file (see `scripts/jobs.showcase.json` for examples):
+
+```json
+{
+  "jobs": [
+    {
+      "name": "example-1",
+      "prompt": "a cute cat on windowsill, soft light, 4k",
+      "output": "outputs/cat.png",
+      "seed": 101,
+      "steps": 28
+    },
+    {
+      "title": "Mountain Peak",
+      "subtitle": "Alpine Adventure",
+      "prompt": "snow mountain at sunrise, dramatic clouds, 4k",
+      "output": "outputs/mountain.png",
+      "seed": 202,
+      "steps": 28,
+      "position": "bottom"
+    }
+  ]
+}
+```
+
+Then run:
 
 ```bash
-python3 scripts/batch_generate.py --jobs scripts/jobs.example.json
+python3 scripts/batch_generate.py --jobs your_jobs.json
 ```
 
 ## Notes
 
-- Prompts should be in English for Stable Diffusion models.
-- `generate_image.py` auto-adds quality prefix and `no text, 4k` suffix for custom prompts.
-- The script draws text via Pillow, not the diffusion model, to ensure readable titles.
+- **Prompts must be in English** - Stable Diffusion models only understand English.
+- Prompt parameter is **required** - no built-in style templates.
+- The script generates background images directly from your prompts.
+- Text overlay (title/subtitle) is optional and rendered with Pillow for precision.
+- Default image size: 512×384 (4:3 ratio).

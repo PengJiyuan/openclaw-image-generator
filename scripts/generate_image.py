@@ -3,21 +3,23 @@ AI 封面图生成器
 流程：Tiny Stable Diffusion 生成背景  →  Pillow 写文字
 
 用法：
-  # 使用内置模板（推荐）：--style 指定风格，其余参数自动补全
-  python3 generate_image.py --title "AI Agent 工程实践" --subtitle "从 ReAct 到多智能体协作" --style tech
-  python3 generate_image.py --title "RAG 入门" --style cosmic
-  python3 generate_image.py --title "向量数据库" --style minimal
+  # 基本用法（仅背景图）
+  python3 generate_image.py --prompt "a cute cat sitting on a windowsill, soft light" --output cat.png
 
-  # 完全自定义 prompt
-  python3 generate_image.py --title "Hello" --prompt "abstract data flow, glowing particles" --output custom.png
+  # 添加文字覆盖
+  python3 generate_image.py \
+    --title "Wildlife Photography" \
+    --subtitle "Exploring Nature's Beauty" \
+    --prompt "a majestic lion in african savanna, golden hour" \
+    --output lion.png
 
-内置风格（--style）：
-  tech      科技粒子流（默认）  深蓝紫色，发光粒子
-  cosmic    宇宙星云            冷色星空，深邃感
-  minimal   极简几何            干净渐变，适合教程类
-  cyberpunk 赛博朋克            霓虹感，暗黑风格
-  nature    自然有机            柔和绿色，生命感
-  warm      温暖抽象            橙金色调，活力感
+  # 自定义参数
+  python3 generate_image.py \
+    --prompt "futuristic city skyline at night, neon lights" \
+    --steps 30 \
+    --seed 42 \
+    --position center \
+    --output city.png
 """
 
 import argparse
@@ -211,68 +213,6 @@ NEGATIVE_PROMPT = (
     "letters, words, numbers, labels, captions"
 )
 
-# ──────────────────────────────────────────────
-# 内置 Prompt 模板
-# 格式："[质量前缀], [主体], [风格], [色调], [光效], [构图]"
-# 这是小模型（Tiny SD）出图最稳的提示词结构
-# ──────────────────────────────────────────────
-PROMPT_TEMPLATES = {
-    # 科技粒子流 —— 深蓝紫色发光粒子，适合 AI/编程类文章
-    "tech": (
-        "masterpiece, best quality, "
-        "abstract technology background, "
-        "glowing digital particles and flowing light streaks, "
-        "deep blue and purple color palette, "
-        "volumetric light, depth of field, "
-        "futuristic, clean composition, no text, 4k"
-    ),
-    # 宇宙星云 —— 冷色深邃星空，适合大模型/宏观趋势类
-    "cosmic": (
-        "masterpiece, best quality, "
-        "cosmic nebula background, "
-        "swirling galaxy dust and distant stars, "
-        "deep navy blue and soft teal color palette, "
-        "cinematic lighting, god rays, "
-        "ethereal atmosphere, no text, 4k"
-    ),
-    # 极简几何 —— 干净渐变色块，适合教程/入门类文章
-    "minimal": (
-        "masterpiece, best quality, "
-        "minimalist geometric abstract background, "
-        "smooth gradient shapes and clean lines, "
-        "muted blue and slate gray color palette, "
-        "soft ambient light, "
-        "clean modern design, no text, 4k"
-    ),
-    # 赛博朋克 —— 霓虹暗黑，适合工程实践/黑客感文章
-    "cyberpunk": (
-        "masterpiece, best quality, "
-        "cyberpunk abstract background, "
-        "neon grid lines and glowing circuit patterns, "
-        "electric purple and hot pink color palette, "
-        "dramatic rim light, dark atmosphere, "
-        "high contrast, no text, 4k"
-    ),
-    # 自然有机 —— 柔和绿色曲线，适合生物/环境/柔性话题
-    "nature": (
-        "masterpiece, best quality, "
-        "organic abstract background, "
-        "flowing translucent leaves and botanical curves, "
-        "soft emerald green and warm ivory color palette, "
-        "diffused natural light, shallow depth of field, "
-        "serene, no text, 4k"
-    ),
-    # 温暖抽象 —— 橙金活力，适合观点/趋势/推荐类文章
-    "warm": (
-        "masterpiece, best quality, "
-        "warm abstract background, "
-        "golden light rays and soft bokeh spheres, "
-        "amber orange and deep gold color palette, "
-        "glowing backlight, haze effect, "
-        "energetic, uplifting, no text, 4k"
-    ),
-}
-
 
 # ──────────────────────────────────────────────
 # Tiny SD 背景生成
@@ -320,40 +260,25 @@ def main():
         description="AI 封面图生成器（Tiny SD + Pillow）",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("--title",    default="",     help="图片主标题文字（可选）")
-    parser.add_argument("--subtitle", default="",     help="副标题文字（可选）")
-    parser.add_argument("--style",    default="tech",
-                        choices=list(PROMPT_TEMPLATES.keys()),
-                        help="内置风格模板（默认 tech）。与 --prompt 互斥，--prompt 优先")
-    parser.add_argument("--prompt",   default="",
-                        help="完全自定义背景 prompt（留空则使用 --style 模板）")
-    parser.add_argument("--output",   default="static/images/cover.png", help="输出路径")
-    parser.add_argument("--steps",    type=int, default=25, help="推理步数（默认 25）")
-    parser.add_argument("--seed",     type=int, default=42,  help="随机种子（默认 42）")
+    parser.add_argument("--prompt",   required=True, help="背景图 prompt (英文)")
+    parser.add_argument("--title",    default="",   help="图片主标题文字 (可选)")
+    parser.add_argument("--subtitle", default="",   help="副标题文字 (可选)")
+    parser.add_argument("--output",   default="outputs/cover.png", help="输出路径")
+    parser.add_argument("--steps",    type=int, default=28, help="推理步数 (默认 28)")
+    parser.add_argument("--seed",     type=int, default=42, help="随机种子 (默认 42)")
     parser.add_argument("--position", default="bottom", choices=["bottom", "center", "top"],
-                        help="文字位置（默认 bottom）")
+                        help="文字位置 (默认 bottom)")
     args = parser.parse_args()
 
-    # prompt 优先级：--prompt 显式传入 > --style 模板
-    QUALITY_PREFIX = "masterpiece, best quality, "
-    if args.prompt.strip():
-        user_prompt = args.prompt.strip()
-        # 检测中文：SD 模型只支持英文 prompt
-        if any("\u4e00" <= c <= "\u9fff" for c in user_prompt):
-            print("⚠️  警告：检测到中文 prompt，Stable Diffusion 只理解英文。")
-            print("    请将 prompt 改为英文，例如：")
-            print(f"      --prompt \"a car speeding on highway, motion blur\"")
-            raise SystemExit(1)
-        # 自动补全质量前缀
-        if not user_prompt.lower().startswith("masterpiece"):
-            user_prompt = QUALITY_PREFIX + user_prompt
-        if not user_prompt.rstrip().endswith("no text, 4k"):
-            user_prompt = user_prompt.rstrip().rstrip(",") + ", no text, 4k"
-        prompt = user_prompt
-        print(f"使用自定义 prompt: {prompt}")
-    else:
-        prompt = PROMPT_TEMPLATES[args.style]
-        print(f"使用内置模板: [{args.style}]")
+    # 检测中文：SD 模型只支持英文 prompt
+    prompt = args.prompt.strip()
+    if any("\u4e00" <= c <= "\u9fff" for c in prompt):
+        print("⚠️  警告：检测到中文 prompt，Stable Diffusion 只理解英文。")
+        print("    请将 prompt 改为英文，例如：")
+        print(f"      --prompt \"a cat sitting on windowsill, soft natural light\"")
+        raise SystemExit(1)
+    
+    print(f"使用 prompt: {prompt}")
 
     # 1. 生成背景
     bg = generate_background(prompt, args.steps, args.seed)

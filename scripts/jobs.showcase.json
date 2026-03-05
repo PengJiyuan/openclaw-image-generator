@@ -1,91 +1,89 @@
 {
   "jobs": [
     {
-      "name": "01-style-tech",
-      "title": "AI Agent Engineering",
-      "subtitle": "从 ReAct 到多智能体协作",
-      "prompt": "masterpiece, best quality, abstract technology background, glowing digital particles and flowing light streaks, deep blue and purple color palette, volumetric light, depth of field, futuristic, clean composition, no text, 4k",
-      "output": "outputs/showcase/01-tech.png",
+      "name": "01-animal-cat",
+      "title": "Feline Grace",
+      "subtitle": "Portrait of a curious cat",
+      "prompt": "a fluffy orange tabby cat sitting on a wooden windowsill, soft natural light, bokeh background, photorealistic, 4k",
+      "output": "outputs/showcase/01-animal-cat.png",
       "seed": 101,
       "steps": 28,
       "position": "bottom"
     },
     {
-      "name": "02-style-cosmic",
-      "title": "Model Context Protocol",
-      "subtitle": "AI 工具的标准接口",
-      "prompt": "masterpiece, best quality, cosmic nebula background, swirling galaxy dust and distant stars, deep navy blue and soft teal color palette, cinematic lighting, god rays, ethereal atmosphere, no text, 4k",
-      "output": "outputs/showcase/02-cosmic.png",
+      "name": "02-animal-lion",
+      "prompt": "majestic male lion with flowing mane, african savanna at golden hour, warm sunset light, shallow depth of field, wildlife photography, 4k",
+      "output": "outputs/showcase/02-animal-lion.png",
       "seed": 202,
-      "steps": 28,
-      "position": "bottom"
+      "steps": 28
     },
     {
-      "name": "03-style-minimal",
-      "title": "RAG 入门指南",
-      "subtitle": "检索增强生成技术详解",
-      "prompt": "masterpiece, best quality, minimalist geometric abstract background, smooth gradient shapes and clean lines, muted blue and slate gray color palette, soft ambient light, clean modern design, no text, 4k",
-      "output": "outputs/showcase/03-minimal.png",
+      "name": "03-landscape-mountain",
+      "title": "Alpine Heights",
+      "subtitle": "Journey to the Summit",
+      "prompt": "snow-capped mountain peaks at sunrise, dramatic clouds, alpine lake reflection, vibrant orange and pink sky, landscape photography, 4k",
+      "output": "outputs/showcase/03-landscape-mountain.png",
       "seed": 303,
       "steps": 28,
       "position": "bottom"
     },
     {
-      "name": "04-style-cyberpunk",
-      "title": "Neural Networks",
-      "subtitle": "Deep Learning Architecture",
-      "prompt": "masterpiece, best quality, cyberpunk abstract background, neon grid lines and glowing circuit patterns, electric purple and hot pink color palette, dramatic rim light, dark atmosphere, high contrast, no text, 4k",
-      "output": "outputs/showcase/04-cyberpunk.png",
+      "name": "04-landscape-ocean",
+      "prompt": "tropical beach with turquoise water, white sand, palm trees swaying, blue sky with fluffy clouds, paradise island, 4k",
+      "output": "outputs/showcase/04-landscape-ocean.png",
       "seed": 404,
-      "steps": 28,
-      "position": "bottom"
+      "steps": 28
     },
     {
-      "name": "05-style-nature",
-      "title": "可持续AI发展",
-      "subtitle": "绿色计算与环境保护",
-      "prompt": "masterpiece, best quality, organic abstract background, flowing translucent leaves and botanical curves, soft emerald green and warm ivory color palette, diffused natural light, shallow depth of field, serene, no text, 4k",
-      "output": "outputs/showcase/05-nature.png",
+      "name": "05-city-skyline",
+      "title": "Urban Pulse",
+      "subtitle": "夜色中的现代都市",
+      "prompt": "modern city skyline at blue hour, skyscrapers with illuminated windows, reflections on river, cinematic composition, architectural photography, 4k",
+      "output": "outputs/showcase/05-city-skyline.png",
       "seed": 505,
       "steps": 28,
       "position": "bottom"
     },
     {
-      "name": "06-style-warm",
-      "title": "2026 AI 趋势",
-      "subtitle": "年度技术发展观察",
-      "prompt": "masterpiece, best quality, warm abstract background, golden light rays and soft bokeh spheres, amber orange and deep gold color palette, glowing backlight, haze effect, energetic, uplifting, no text, 4k",
-      "output": "outputs/showcase/06-warm.png",
+      "name": "06-city-street",
+      "prompt": "rainy city street at night, neon signs reflecting on wet pavement, bokeh lights, cyberpunk aesthetic, moody atmosphere, 4k",
+      "output": "outputs/showcase/06-city-street.png",
       "seed": 606,
-      "steps": 28,
-      "position": "bottom"
-    },
-    {
-      "name": "07-background-only",
-      "prompt": "masterpiece, best quality, abstract flowing light ribbons, glowing particles in motion, blue cyan and purple gradient, cinematic depth, volumetric light, no text, 4k",
-      "output": "outputs/showcase/07-background-only.png",
-      "seed": 707,
       "steps": 28
     },
     {
-      "name": "08-position-center",
-      "title": "Centered Title",
-      "subtitle": "Center position showcase",
-      "prompt": "masterpiece, best quality, soft gradient background with symmetrical light rays, centered composition, muted blue and white palette, ethereal glow, no text, 4k",
-      "output": "outputs/showcase/08-position-center.png",
-      "seed": 808,
+      "name": "07-scifi-space",
+      "title": "Beyond Earth",
+      "subtitle": "Exploring the Cosmos",
+      "prompt": "astronaut floating in space with earth in background, stunning nebula and stars, cosmic vista, cinematic lighting, science fiction, 4k",
+      "output": "outputs/showcase/07-scifi-space.png",
+      "seed": 707,
       "steps": 28,
       "position": "center"
     },
     {
-      "name": "09-position-top",
-      "title": "Top Aligned Title",
-      "subtitle": "Top position showcase",
-      "prompt": "masterpiece, best quality, cloudy gradient background, light emanating from bottom, soft teal and lavender palette, dreamy atmosphere, no text, 4k",
-      "output": "outputs/showcase/09-position-top.png",
+      "name": "08-scifi-robot",
+      "prompt": "futuristic humanoid robot with glowing blue eyes, sleek metallic surface, high-tech laboratory background, dramatic lighting, sci-fi concept art, 4k",
+      "output": "outputs/showcase/08-scifi-robot.png",
+      "seed": 808,
+      "steps": 28
+    },
+    {
+      "name": "09-vehicle-sports-car",
+      "title": "Speed Demon",
+      "subtitle": "Pure Performance",
+      "prompt": "red luxury sports car on coastal highway, motion blur, golden hour lighting, dramatic sky, automotive photography, 4k",
+      "output": "outputs/showcase/09-vehicle-sports-car.png",
       "seed": 909,
       "steps": 28,
       "position": "top"
+    },
+    {
+      "name": "10-food-coffee",
+      "prompt": "steaming cup of latte art coffee on rustic wooden table, morning light through window, cozy cafe atmosphere, food photography, 4k",
+      "output": "outputs/showcase/10-food-coffee.png",
+      "seed": 1010,
+      "steps": 28
     }
   ]
 }

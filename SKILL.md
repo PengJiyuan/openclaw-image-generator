@@ -94,13 +94,15 @@ Text fields are optional.
 - If `title` is provided: render title (and optional subtitle).
 - If `title` and `subtitle` are both missing: output background image only.
 
+**Important:** `--prompt` parameter is **required**. No built-in style templates.
+
 Single image command template:
 
 ```bash
 python3 tiny-sd-cover-generator/scripts/generate_image.py \
+  --prompt "<English prompt>" \
   --title "<Chinese or English title>" \
   --subtitle "<optional subtitle>" \
-  --prompt "<English prompt>" \
   --output "outputs/<name>.png" \
   --steps 28 \
   --seed 42 \
@@ -111,8 +113,8 @@ Background-only template:
 
 ```bash
 python3 tiny-sd-cover-generator/scripts/generate_image.py \
-  --prompt "abstract flowing light ribbons, blue and cyan particles" \
-  --output "outputs/background-only.png"
+  --prompt "tropical beach with turquoise water, white sand, 4k" \
+  --output "outputs/beach.png"
 ```
 
 Default tuning:
@@ -125,9 +127,9 @@ Quick test:
 
 ```bash
 python3 tiny-sd-cover-generator/scripts/generate_image.py \
-  --title "Hello" \
-  --prompt "abstract data flow, glowing particles" \
-  --output "outputs/custom-cover.png"
+  --prompt "a cute cat sitting on windowsill, soft natural light, 4k" \
+  --title "Feline Grace" \
+  --output "outputs/cat.png"
 ```
 
 ### 4) Verify output quality
