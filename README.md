@@ -31,90 +31,80 @@ pip install -r scripts/requirements.txt
 
 ### Scene Types
 
-**Animal Photography**
+**Wildlife Photography**
 
-![Cat](outputs/showcase/01-animal-cat.png)
+![Animal](outputs/showcase/01-animal.png)
 
 ```bash
 python3 scripts/generate_image.py \
-  --prompt "a fluffy orange tabby cat sitting on a wooden windowsill, soft natural light, bokeh background, photorealistic, 4k" \
-  --title "Feline Grace" \
-  --subtitle "Portrait of a curious cat" \
-  --output outputs/cat.png \
+  --prompt "majestic deer standing in misty forest, golden morning light through trees, photorealistic wildlife photography, 4k" \
+  --title "Wild Beauty" \
+  --subtitle "大自然的精灵" \
+  --output outputs/animal.png \
   --seed 101
 ```
 
 ---
 
-**Landscape Photography**
+**Automotive Photography**
 
-![Mountain](outputs/showcase/02-landscape-mountain.png)
+![Car](outputs/showcase/02-car.png)
 
 ```bash
 python3 scripts/generate_image.py \
-  --prompt "snow-capped mountain peaks at sunrise, dramatic clouds, alpine lake reflection, vibrant orange and pink sky, landscape photography, 4k" \
-  --title "Alpine Heights" \
-  --subtitle "Journey to the Summit" \
-  --output outputs/mountain.png \
+  --prompt "sleek red sports car on winding mountain road, dramatic sunset lighting, motion blur effect, automotive photography, 4k" \
+  --title "Speed & Power" \
+  --subtitle "极速之美" \
+  --position top \
+  --output outputs/car.png \
   --seed 202
 ```
 
 ---
 
-**Urban & Architecture**
+**Ocean & Beach**
 
-![City](outputs/showcase/03-city-skyline.png)
+![Ocean](outputs/showcase/03-ocean.png)
 
 ```bash
 python3 scripts/generate_image.py \
-  --prompt "modern city skyline at blue hour, skyscrapers with illuminated windows, reflections on river, cinematic composition, architectural photography, 4k" \
-  --title "Urban Pulse" \
-  --subtitle "夜色中的现代都市" \
-  --output outputs/city.png \
+  --prompt "turquoise ocean waves, white sandy beach, palm trees, tropical paradise, crystal clear water, landscape photography, 4k" \
+  --title "Ocean Serenity" \
+  --subtitle "宁静的海洋" \
+  --output outputs/ocean.png \
   --seed 303
 ```
 
 ---
 
-**Science Fiction**
+**Urban Street Photography**
 
-![Space](outputs/showcase/04-scifi-space.png)
+![Street](outputs/showcase/04-street.png)
 
 ```bash
 python3 scripts/generate_image.py \
-  --prompt "astronaut floating in space with earth in background, stunning nebula and stars, cosmic vista, cinematic lighting, science fiction, 4k" \
-  --title "Beyond Earth" \
-  --subtitle "Exploring the Cosmos" \
+  --prompt "busy city street at dusk, neon lights, reflections on wet pavement, people walking, urban photography, cinematic mood, 4k" \
+  --title "Urban Life" \
+  --subtitle "城市街头" \
   --position center \
-  --output outputs/space.png \
+  --output outputs/street.png \
   --seed 404
 ```
 
 ---
 
-### Text Style Customization
+**Architecture & Real Estate**
 
-**Custom Colors & Outline**
-
-![Custom Style](outputs/showcase/05-custom-style.png)
+![House](outputs/showcase/05-house.png)
 
 ```bash
 python3 scripts/generate_image.py \
-  --prompt "abstract flowing ribbons of light, vibrant colors, digital art, 4k" \
-  --title "Creative Vision" \
-  --title-size 65 \
-  --title-color "255,200,50,255" \
-  --outline-width 5 \
-  --outline-color "150,0,200,220" \
-  --output outputs/custom.png \
+  --prompt "modern luxury house with large windows, sunset view, architectural design, cozy warm lighting from inside, contemporary architecture, 4k" \
+  --title "Dream Home" \
+  --subtitle "建筑之美" \
+  --output outputs/house.png \
   --seed 505
 ```
-
-**Configuration:**
-- Title size: `65` (larger than default)
-- Title color: `255,200,50,255` (golden yellow)
-- Outline width: `5` (thicker border)
-- Outline color: `150,0,200,220` (purple with transparency)
 
 ---
 

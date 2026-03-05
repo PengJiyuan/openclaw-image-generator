@@ -1,57 +1,54 @@
 {
   "jobs": [
     {
-      "name": "01-animal-cat",
-      "title": "Feline Grace",
-      "subtitle": "Portrait of a curious cat",
-      "prompt": "a fluffy orange tabby cat sitting on a wooden windowsill, soft natural light, bokeh background, photorealistic, 4k",
-      "output": "outputs/showcase/01-animal-cat.png",
+      "name": "01-animal",
+      "title": "Wild Beauty",
+      "subtitle": "大自然的精灵",
+      "prompt": "majestic deer standing in misty forest, golden morning light through trees, photorealistic wildlife photography, 4k",
+      "output": "outputs/showcase/01-animal.png",
       "seed": 101,
       "steps": 28,
       "position": "bottom"
     },
     {
-      "name": "02-landscape-mountain",
-      "title": "Alpine Heights",
-      "subtitle": "Journey to the Summit",
-      "prompt": "snow-capped mountain peaks at sunrise, dramatic clouds, alpine lake reflection, vibrant orange and pink sky, landscape photography, 4k",
-      "output": "outputs/showcase/02-landscape-mountain.png",
+      "name": "02-car",
+      "title": "Speed & Power",
+      "subtitle": "极速之美",
+      "prompt": "sleek red sports car on winding mountain road, dramatic sunset lighting, motion blur effect, automotive photography, 4k",
+      "output": "outputs/showcase/02-car.png",
       "seed": 202,
       "steps": 28,
-      "position": "bottom"
+      "position": "top"
     },
     {
-      "name": "03-city-skyline",
-      "title": "Urban Pulse",
-      "subtitle": "夜色中的现代都市",
-      "prompt": "modern city skyline at blue hour, skyscrapers with illuminated windows, reflections on river, cinematic composition, architectural photography, 4k",
-      "output": "outputs/showcase/03-city-skyline.png",
+      "name": "03-ocean",
+      "title": "Ocean Serenity",
+      "subtitle": "宁静的海洋",
+      "prompt": "turquoise ocean waves, white sandy beach, palm trees, tropical paradise, crystal clear water, landscape photography, 4k",
+      "output": "outputs/showcase/03-ocean.png",
       "seed": 303,
       "steps": 28,
       "position": "bottom"
     },
     {
-      "name": "04-scifi-space",
-      "title": "Beyond Earth",
-      "subtitle": "Exploring the Cosmos",
-      "prompt": "astronaut floating in space with earth in background, stunning nebula and stars, cosmic vista, cinematic lighting, science fiction, 4k",
-      "output": "outputs/showcase/04-scifi-space.png",
+      "name": "04-street",
+      "title": "Urban Life",
+      "subtitle": "城市街头",
+      "prompt": "busy city street at dusk, neon lights, reflections on wet pavement, people walking, urban photography, cinematic mood, 4k",
+      "output": "outputs/showcase/04-street.png",
       "seed": 404,
       "steps": 28,
       "position": "center"
     },
     {
-      "name": "05-custom-style",
-      "title": "Creative Vision",
-      "prompt": "abstract flowing ribbons of light, vibrant colors, digital art, 4k",
-      "output": "outputs/showcase/05-custom-style.png",
+      "name": "05-house",
+      "title": "Dream Home",
+      "subtitle": "建筑之美",
+      "prompt": "modern luxury house with large windows, sunset view, architectural design, cozy warm lighting from inside, contemporary architecture, 4k",
+      "output": "outputs/showcase/05-house.png",
       "seed": 505,
       "steps": 28,
-      "position": "bottom",
-      "title_size": 65,
-      "title_color": "255,200,50,255",
-      "outline_width": 5,
-      "outline_color": "150,0,200,220"
+      "position": "bottom"
     }
   ]
 }
