@@ -1,6 +1,2 @@
 __pycache__/
 *.pyc
-
-# Ignore generated outputs except showcase
-outputs/
-!outputs/showcase/

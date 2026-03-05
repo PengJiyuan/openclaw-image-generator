@@ -33,7 +33,7 @@ pip install -r scripts/requirements.txt
 
 **Wildlife Photography**
 
-![Animal](outputs/showcase/01-animal.png)
+![Animal](showcase/01-animal.png)
 
 ```bash
 python3 scripts/generate_image.py \
@@ -48,7 +48,7 @@ python3 scripts/generate_image.py \
 
 **Automotive Photography**
 
-![Car](outputs/showcase/02-car.png)
+![Car](showcase/02-car.png)
 
 ```bash
 python3 scripts/generate_image.py \
@@ -64,7 +64,7 @@ python3 scripts/generate_image.py \
 
 **Ocean & Beach**
 
-![Ocean](outputs/showcase/03-ocean.png)
+![Ocean](showcase/03-ocean.png)
 
 ```bash
 python3 scripts/generate_image.py \
@@ -79,7 +79,7 @@ python3 scripts/generate_image.py \
 
 **Urban Street Photography**
 
-![Street](outputs/showcase/04-street.png)
+![Street](showcase/04-street.png)
 
 ```bash
 python3 scripts/generate_image.py \
@@ -95,7 +95,7 @@ python3 scripts/generate_image.py \
 
 **Architecture & Real Estate**
 
-![House](outputs/showcase/05-house.png)
+![House](showcase/05-house.png)
 
 ```bash
 python3 scripts/generate_image.py \
