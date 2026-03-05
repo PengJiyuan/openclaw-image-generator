@@ -1,9 +1,9 @@
 ---
-name: tiny-sd-cover-generator
-description: Generate title-ready cover images with Tiny Stable Diffusion plus Pillow text overlay. Use this skill whenever users ask to create AI covers, regenerate visual assets, improve prompt quality, batch-generate branded thumbnails, or polish text-overlay aesthetics for blogs, docs, social posts, videos, or presentations.
+name: openclaw-image-generator
+description: Generate professional images (covers, posters, illustrations) with Tiny Stable Diffusion AI. Supports pure background images or text-overlaid designs with customizable titles, subtitles, colors, and positioning. Use for blogs, videos, social media, presentations, documentation, or any visual project. Single or batch generation.
 ---
 
-# Tiny SD Cover Generator
+# OpenClaw Image Generator
 
 Generate production-ready cover images using this pipeline:
 
@@ -15,11 +15,33 @@ Generate production-ready cover images using this pipeline:
 
 Use this skill when user intent includes:
 
-- "给文章/视频/社媒生成封面"
-- "批量重生成视觉素材"
-- "优化 AI 绘图 prompt"
-- "Tiny SD / Stable Diffusion + Pillow"
+**Image Generation:**
+
+- "生成/创建封面、海报、插图"
+- "给文章/博客/视频/社媒生成配图"
+- "生成演示文稿/PPT 的背景图"
+- "生成纯背景图（不要文字）"
+- "创建品牌/产品宣传图"
+
+**Text & Design Customization:**
+
+- "给图片添加标题/文字"
+- "调整文字颜色、大小、位置"
+- "保存不同样式的文字版本"
 - "标题文字和背景融合不好"
+
+**Batch & Optimization:**
+
+- "批量重生成视觉素材"
+- "一次生成多个不同风格的图"
+- "优化 AI 绘图 prompt 质量"
+- "多个主题的配图都要生成一下"
+
+**Technical:**
+
+- "Tiny SD / Stable Diffusion + Pillow"
+- "用 AI 生成高质量图片"
+- "需要快速生成图片"
 
 ## Skill Package Layout
 
