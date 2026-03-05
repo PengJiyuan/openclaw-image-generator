@@ -5,11 +5,11 @@ description: Generate professional images (covers, posters, illustrations) with 
 
 # OpenClaw Image Generator
 
-Generate production-ready cover images using this pipeline:
+Generate production-ready images using this pipeline:
 
-1. Tiny Stable Diffusion generates background.
-2. Pillow renders title/subtitle text only when text fields are provided.
-3. The output image can be used in any system (static site, CMS, social, docs, slides).
+1. Tiny Stable Diffusion generates background image
+2. Pillow renders optional title/subtitle text with customizable styling
+3. Output images can be used in any system (blogs, social media, presentations, documentation, etc.)
 
 ## Trigger Conditions
 
@@ -17,51 +17,38 @@ Use this skill when user intent includes:
 
 **Image Generation:**
 
-- "生成/创建封面、海报、插图"
-- "给文章/博客/视频/社媒生成配图"
-- "生成演示文稿/PPT 的背景图"
-- "生成纯背景图（不要文字）"
-- "创建品牌/产品宣传图"
+- "Generate/create covers, posters, illustrations"
+- "Create cover images for articles, blogs, videos, or social media"
+- "Generate background images for presentations or slides"
+- "Generate pure background images (without text)"
+- "Create branded or product promotional images"
 
 **Text & Design Customization:**
 
-- "给图片添加标题/文字"
-- "调整文字颜色、大小、位置"
-- "保存不同样式的文字版本"
-- "标题文字和背景融合不好"
+- "Add title or text to images"
+- "Adjust text color, size, and positioning"
+- "Create multiple text style variations"
+- "Improve text and background integration"
 
 **Batch & Optimization:**
 
-- "批量重生成视觉素材"
-- "一次生成多个不同风格的图"
-- "优化 AI 绘图 prompt 质量"
-- "多个主题的配图都要生成一下"
+- "Batch regenerate visual assets"
+- "Generate multiple images with different styles at once"
+- "Improve AI image generation prompt quality"
+- "Generate cover images for multiple topics"
 
 **Technical:**
 
 - "Tiny SD / Stable Diffusion + Pillow"
-- "用 AI 生成高质量图片"
-- "需要快速生成图片"
-
-## Skill Package Layout
-
-This skill is self-contained and should be committed with this structure:
-
-```text
-tiny-sd-cover-generator/
-  SKILL.md
-  scripts/
-    generate_image.py
-    batch_generate.py
-    requirements.txt
-```
+- "Generate high-quality images with AI"
+- "Need fast image generation"
 
 ## Repository Assumptions
 
-- Script path: `tiny-sd-cover-generator/scripts/generate_image.py`
-- Batch helper: `tiny-sd-cover-generator/scripts/batch_generate.py`
-- Jobs file: `tiny-sd-cover-generator/scripts/jobs.example.json`
-- Output directory can be any custom path.
+- Script path: `scripts/generate_image.py`
+- Batch helper: `scripts/batch_generate.py`
+- Jobs config: `scripts/jobs.showcase.json` (for batch mode)
+- Output directory: customizable via `--output` parameter
 
 If these paths differ, adapt commands to actual repository paths.
 
@@ -70,150 +57,234 @@ If these paths differ, adapt commands to actual repository paths.
 Install dependencies from bundled requirements:
 
 ```bash
-pip install -r tiny-sd-cover-generator/scripts/requirements.txt
+pip install -r scripts/requirements.txt
 ```
 
-Note: PyTorch backend auto-selects `mps`/`cuda`/`cpu` at runtime.
+**Platform Support:**
+
+- macOS with Apple Silicon: uses MPS (Metal Performance Shaders)
+- NVIDIA GPUs: uses CUDA
+- CPU fallback: supported but slower
+
+Backend selection is automatic at runtime.
 
 ## Standard Workflow
 
-### 1) Read source content and extract visual intent
+### 1) Understand the visual requirements
 
-For each target item, read:
+For each image request, gather:
 
-- `title`
-- `description`
-- key bullets / headings / context text
+- Target subject or theme
+- Desired mood, style, or atmosphere
+- Key visual elements
+- Text content (title, subtitle) if any
 
-Then summarize in one line:
+Then create a one-line summary:
 
-- topic noun (what it is)
-- action verb (what happens)
-- visual metaphor (how to depict it)
-- mood/color (tone)
+- **What:** Main subject (e.g., "wildlife photography", "urban street", "modern architecture")
+- **Action:** What's happening (e.g., "capturing a moment", "conveying motion", "showing details")
+- **Visual style:** How to depict it (e.g., "cinematic", "photorealistic", "minimalist")
+- **Mood:** Tone and atmosphere (e.g., "dramatic lighting", "warm and cozy", "dynamic energy")
 
-### 2) Translate concept into English prompt
+### 2) Create an English language prompt
 
-Always write prompt in English for SD models.
+Always write prompts in English (Stable Diffusion models only understand English).
 
-Use this structure (keep concise and concrete):
+**Recommended structure:**
 
-`masterpiece, best quality, [main scene], [secondary detail], [lighting], [palette], [composition], no text, 4k`
+`[subject], [setting/environment], [lighting/mood], [style/quality], [composition details], no text, 4k`
 
-Good prompt patterns for Tiny SD:
+**Example:**
+`majestic deer in misty forest, golden morning light, photorealistic wildlife photography, bokeh background, 4k`
 
-- prefer 1 clear scene over many objects
-- avoid long abstract jargon chains
-- keep 5-8 descriptive chunks
-- include `no text, 4k`
+**Prompt best practices for Tiny SD:**
+
+✅ DO:
+
+- Use concrete, specific nouns ("red sports car", "turquoise ocean waves", "luxury modern house")
+- Include lighting descriptions ("golden hour", "dramatic sunset", "cinematic lighting")
+- Specify mood/atmosphere ("cozy", "dynamic", "serene", "energetic")
+- Keep 5-8 key descriptive elements
+- Always include `no text, 4k`
+
+❌ AVOID:
+
+- Chinese or non-English text in prompts
+- Too many unrelated objects
+- Conflicting visual styles
+- Asking the model to render readable text
+- Overly complex or abstract descriptions
 
 Negative prompt is handled by the script; do not duplicate unless asked.
 
-### 3) Generate image with text overlay
+### 3) Generate the image
 
-Text fields are optional.
+**Text overlay is optional:**
 
-- If `title` is provided: render title (and optional subtitle).
-- If `title` and `subtitle` are both missing: output background image only.
+- Provide `--title` (and optional `--subtitle`) for text-overlaid images
+- Omit both to generate background image only
 
-**Important:** `--prompt` parameter is **required**. No built-in style templates.
+**Required parameter:** `--prompt` (no built-in style templates)
 
-Single image command template:
+**Single image with text overlaid:**
 
 ```bash
-python3 tiny-sd-cover-generator/scripts/generate_image.py \
+python3 scripts/generate_image.py \
   --prompt "<English prompt>" \
-  --title "<Chinese or English title>" \
-  --subtitle "<optional subtitle>" \
-  --output "outputs/<name>.png" \
+  --title "<Title text>" \
+  --subtitle "<Optional subtitle>" \
+  --output "outputs/image.png" \
   --steps 28 \
   --seed 42 \
   --position bottom
 ```
 
-Background-only template:
+**Background image only:**
 
 ```bash
-python3 tiny-sd-cover-generator/scripts/generate_image.py \
-  --prompt "tropical beach with turquoise water, white sand, 4k" \
+python3 scripts/generate_image.py \
+  --prompt "tropical beach with turquoise water, white sand, palm trees, 4k" \
   --output "outputs/beach.png"
 ```
 
-Default tuning:
-
-- `steps`: 25-30 for Tiny SD quality/speed balance
-- `seed`: fixed seed for reproducibility
-- `position`: `bottom` unless background center is empty
-
-Quick test:
+**With custom text styling:**
 
 ```bash
-python3 tiny-sd-cover-generator/scripts/generate_image.py \
-  --prompt "a cute cat sitting on windowsill, soft natural light, 4k" \
-  --title "Feline Grace" \
-  --output "outputs/cat.png"
+python3 scripts/generate_image.py \
+  --prompt "modern luxury house, sunset lighting, contemporary architecture, 4k" \
+  --title "Dream Home" \
+  --title-color "255,200,50,255" \
+  --title-size 60 \
+  --outline-width 3 \
+  --outline-color "0,0,0,200" \
+  --output "outputs/house.png"
 ```
+
+**Parameter tuning guide:**
+
+| Parameter         | Default         | Recommended Range     | Purpose                                              |
+| ----------------- | --------------- | --------------------- | ---------------------------------------------------- |
+| `--steps`         | 28              | 25-30                 | Inference steps (higher = better quality but slower) |
+| `--seed`          | 42              | any integer           | Random seed for reproducibility                      |
+| `--position`      | bottom          | top / center / bottom | Text placement on image                              |
+| `--title-size`    | auto            | 40-80                 | Font size for title                                  |
+| `--title-color`   | 255,255,255,255 | RGBA values           | Title text color                                     |
+| `--outline-width` | 3               | 0-6                   | Text outline stroke (0 = no outline)                 |
+| `--outline-color` | 0,0,0,200       | RGBA values           | Outline color for readability                        |
 
 ### 4) Verify output quality
 
 Inspect each generated image for:
 
-- text readability
-- panel placement
-- no overflow/truncation
-- style consistency across all assets
+- ✓ Text readability (good contrast with background)
+- ✓ Text positioning (no overflow, proper alignment)
+- ✓ Visual coherence (style consistency across batch)
+- ✓ No artifacts or degradation
+- ✓ Output file size and format
 
 ## Batch Generation Mode
 
-When user asks to regenerate a batch of assets:
+For generating multiple images at once:
 
-1. Prepare a jobs JSON file.
-2. Draft one custom English prompt per post.
-3. Set `prompt/output/seed` for each item, and add `title/subtitle` only when text overlay is needed.
-4. Run:
+**Step 1:** Create a JSON configuration file (e.g., `jobs.json`):
 
-```bash
-python3 tiny-sd-cover-generator/scripts/batch_generate.py \
-  --jobs tiny-sd-cover-generator/scripts/jobs.example.json
+```json
+{
+  "jobs": [
+    {
+      "name": "wildlife-photo",
+      "prompt": "majestic deer in misty forest, golden morning light, photorealistic, 4k",
+      "title": "Wild Beauty",
+      "subtitle": "Nature's Elegance",
+      "output": "outputs/01-wildlife.png",
+      "seed": 101,
+      "steps": 28,
+      "position": "bottom"
+    },
+    {
+      "name": "car-photo",
+      "prompt": "red sports car on mountain road, sunset lighting, motion blur, 4k",
+      "title": "Speed & Power",
+      "output": "outputs/02-car.png",
+      "seed": 202,
+      "steps": 28,
+      "position": "top"
+    }
+  ]
+}
 ```
 
-5. Report all generated output paths.
+**Step 2:** Run batch generation:
+
+```bash
+python3 scripts/batch_generate.py \
+  --jobs jobs.json
+```
+
+**Step 3:** Verify all outputs were generated successfully and report paths.
 
 ## Prompt Quality Rules
 
-Do:
+**✅ Effective prompt elements:**
 
-- concrete nouns: `city skyline`, `connector plug`, `digital library`
-- strong light words: `volumetric light`, `glowing`, `cinematic`
-- controlled palettes: `deep blue and cyan`, `emerald and teal`
+- **Concrete subjects:** `majestic deer`, `luxury yacht`, `modern skyscraper`, `tropical beach`
+- **Specific lighting:** `golden hour`, `dramatic sunset`, `volumetric light`, `cinematic glow`
+- **Color palettes:** `deep blue and cyan`, `warm golden tones`, `emerald and teal`
+- **Composition:** `wide angle`, `shallow depth of field`, `symmetrical framing`, `bokeh background`
+- **Quality markers:** `photorealistic`, `4k`, `masterpiece`, `professional photography`
 
-Avoid:
+**❌ Things to avoid:**
 
-- Chinese prompt text for SD
-- too many unrelated objects
-- conflicting styles in one prompt
-- asking model to draw readable text
+- Non-English text in prompts
+- Overly many unrelated objects
+- Contradictory visual styles (e.g., "minimalist cyberpunk")
+- Requesting readable text/numbers in images
+- Generic descriptions without specifics
 
 ## Troubleshooting
 
-- Prompt ignored / subject missing:
-  - shorten prompt and move main subject to first chunk
-  - increase steps to `30`
-  - try 2-3 seeds (`42`, `101`, `202`)
-- Text overlay looks detached:
-  - keep `--position bottom`
-  - adjust subtitle length
-  - regenerate with calmer background prompt
-- Asset path looks wrong in your app:
-  - verify actual output path and downstream config
-  - use absolute or project-relative path consistently
+**Issue: Generated image doesn't match prompt**
+
+- ✓ Shorten the prompt and move main subject to the beginning
+- ✓ Increase `--steps` to 30-35 for more detail
+- ✓ Try different seeds: `42`, `101`, `202`, etc.
+- ✓ Check that all words are spelled correctly and in English
+
+**Issue: Text overlay looks misaligned or illegible**
+
+- ✓ Keep `--position bottom` unless you need centered or top text
+- ✓ Reduce `--title-size` if text is truncated
+- ✓ Try `--outline-width 0` if outline is too thick
+- ✓ Use a simpler background prompt (fewer objections)
+- ✓ Ensure sufficient contrast between text color and background
+
+**Issue: Colors or style incorrect**
+
+- ✓ Verify `--title-color` and `--outline-color` RGBA values
+- ✓ Re-check English prompt spelling and grammar
+- ✓ Regenerate with different seed values
+
+**Issue: File path not found**
+
+- ✓ Verify `--output` path exists or use auto-creation (`os.makedirs`)
+- ✓ Use absolute path or project-relative path consistently
+- ✓ Check file permissions in output directory
 
 ## Response Style When Using This Skill
 
-When executing tasks, provide:
+When generating images, provide clear feedback:
 
-1. Per-item one-line content summary.
-2. Final English prompt used.
-3. Output image path.
-4. Any changed integration file paths (if any).
-5. Optional seed notes for reproducibility.
+1. **Item summary** (1 line describing the image concept)
+2. **Final prompt** used for generation
+3. **Output path** where image was saved
+4. **Configuration notes** (seed, steps, text styling applied)
+5. **Status** (success/failure with any issues)
+
+**Example output:**
+
+```
+✅ Wildlife Photography - Majestic deer in forest
+Prompt: "majestic deer standing in misty forest, golden morning light..."
+Output: outputs/01-wildlife.png
+Config: seed=101, steps=28, title="Wild Beauty", position=bottom
+```
