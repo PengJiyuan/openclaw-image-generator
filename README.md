@@ -29,257 +29,213 @@ pip install -r scripts/requirements.txt
 
 ## Gallery
 
-Showcase of various scene types. All examples use `--steps 28`.
+### Scene Types
 
-### Animals
-
-<table>
-<tr>
-<td width="50%">
-
-**Cat** (with text overlay)
+**Animal Photography**
 
 ![Cat](outputs/showcase/01-animal-cat.png)
 
-**Prompt:**
+```bash
+python3 scripts/generate_image.py \
+  --prompt "a fluffy orange tabby cat sitting on a wooden windowsill, soft natural light, bokeh background, photorealistic, 4k" \
+  --title "Feline Grace" \
+  --subtitle "Portrait of a curious cat" \
+  --output outputs/cat.png \
+  --seed 101
 ```
-a fluffy orange tabby cat sitting on a wooden windowsill,
-soft natural light, bokeh background, photorealistic, 4k
-```
-
-**Title:** Feline Grace  
-**Subtitle:** Portrait of a curious cat  
-**Seed:** 101  
-**Position:** bottom
-
-</td>
-<td width="50%">
-
-**Lion** (background only)
-
-![Lion](outputs/showcase/02-animal-lion.png)
-
-**Prompt:**
-```
-majestic male lion with flowing mane, african savanna at golden hour,
-warm sunset light, shallow depth of field, wildlife photography, 4k
-```
-
-**Seed:** 202
-
-</td>
-</tr>
-</table>
-
-### Landscape
-
-<table>
-<tr>
-<td width="50%">
-
-**Mountain** (with text overlay)
-
-![Mountain](outputs/showcase/03-landscape-mountain.png)
-
-**Prompt:**
-```
-snow-capped mountain peaks at sunrise, dramatic clouds,
-alpine lake reflection, vibrant orange and pink sky,
-landscape photography, 4k
-```
-
-**Title:** Alpine Heights  
-**Subtitle:** Journey to the Summit  
-**Seed:** 303  
-**Position:** bottom
-
-</td>
-<td width="50%">
-
-**Ocean** (background only)
-
-![Ocean](outputs/showcase/04-landscape-ocean.png)
-
-**Prompt:**
-```
-tropical beach with turquoise water, white sand,
-palm trees swaying, blue sky with fluffy clouds,
-paradise island, 4k
-```
-
-**Seed:** 404
-
-</td>
-</tr>
-</table>
-
-### City & Urban
-
-<table>
-<tr>
-<td width="50%">
-
-**Skyline** (with text overlay)
-
-![City Skyline](outputs/showcase/05-city-skyline.png)
-
-**Prompt:**
-```
-modern city skyline at blue hour, skyscrapers with illuminated windows,
-reflections on river, cinematic composition,
-architectural photography, 4k
-```
-
-**Title:** Urban Pulse  
-**Subtitle:** 夜色中的现代都市  
-**Seed:** 505  
-**Position:** bottom
-
-</td>
-<td width="50%">
-
-**Street** (background only)
-
-![City Street](outputs/showcase/06-city-street.png)
-
-**Prompt:**
-```
-rainy city street at night, neon signs reflecting on wet pavement,
-bokeh lights, cyberpunk aesthetic, moody atmosphere, 4k
-```
-
-**Seed:** 606
-
-</td>
-</tr>
-</table>
-
-### Science Fiction
-
-<table>
-<tr>
-<td width="50%">
-
-**Space** (with text overlay)
-
-![Space](outputs/showcase/07-scifi-space.png)
-
-**Prompt:**
-```
-astronaut floating in space with earth in background,
-stunning nebula and stars, cosmic vista,
-cinematic lighting, science fiction, 4k
-```
-
-**Title:** Beyond Earth  
-**Subtitle:** Exploring the Cosmos  
-**Seed:** 707  
-**Position:** center
-
-</td>
-<td width="50%">
-
-**Robot** (background only)
-
-![Robot](outputs/showcase/08-scifi-robot.png)
-
-**Prompt:**
-```
-futuristic humanoid robot with glowing blue eyes,
-sleek metallic surface, high-tech laboratory background,
-dramatic lighting, sci-fi concept art, 4k
-```
-
-**Seed:** 808
-
-</td>
-</tr>
-</table>
-
-### Vehicles & Food
-
-<table>
-<tr>
-<td width="50%">
-
-**Sports Car** (with text overlay)
-
-![Sports Car](outputs/showcase/09-vehicle-sports-car.png)
-
-**Prompt:**
-```
-red luxury sports car on coastal highway, motion blur,
-golden hour lighting, dramatic sky, automotive photography, 4k
-```
-
-**Title:** Speed Demon  
-**Subtitle:** Pure Performance  
-**Seed:** 909  
-**Position:** top
-
-</td>
-<td width="50%">
-
-**Coffee** (background only)
-
-![Coffee](outputs/showcase/10-food-coffee.png)
-
-**Prompt:**
-```
-steaming cup of latte art coffee on rustic wooden table,
-morning light through window, cozy cafe atmosphere,
-food photography, 4k
-```
-
-**Seed:** 1010
-
-</td>
-</tr>
-</table>
 
 ---
 
-## Single Image
+**Landscape Photography**
 
-Basic usage:
-
-```bash
-python3 scripts/generate_image.py \
-	--prompt "a majestic lion in african savanna, golden hour" \
-	--output "outputs/lion.png"
-```
-
-With text overlay:
+![Mountain](outputs/showcase/02-landscape-mountain.png)
 
 ```bash
 python3 scripts/generate_image.py \
-	--prompt "modern city skyline at night, neon lights" \
-	--title "Urban Pulse" \
-	--subtitle "Modern Architecture" \
-	--output "outputs/city.png" \
-	--position bottom
+  --prompt "snow-capped mountain peaks at sunrise, dramatic clouds, alpine lake reflection, vibrant orange and pink sky, landscape photography, 4k" \
+  --title "Alpine Heights" \
+  --subtitle "Journey to the Summit" \
+  --output outputs/mountain.png \
+  --seed 202
 ```
 
-`--title` and `--subtitle` are optional. Without `--title`, generates background image only.
+---
+
+**Urban & Architecture**
+
+![City](outputs/showcase/03-city-skyline.png)
+
+```bash
+python3 scripts/generate_image.py \
+  --prompt "modern city skyline at blue hour, skyscrapers with illuminated windows, reflections on river, cinematic composition, architectural photography, 4k" \
+  --title "Urban Pulse" \
+  --subtitle "夜色中的现代都市" \
+  --output outputs/city.png \
+  --seed 303
+```
+
+---
+
+**Science Fiction**
+
+![Space](outputs/showcase/04-scifi-space.png)
+
+```bash
+python3 scripts/generate_image.py \
+  --prompt "astronaut floating in space with earth in background, stunning nebula and stars, cosmic vista, cinematic lighting, science fiction, 4k" \
+  --title "Beyond Earth" \
+  --subtitle "Exploring the Cosmos" \
+  --position center \
+  --output outputs/space.png \
+  --seed 404
+```
+
+---
+
+### Text Style Customization
+
+**Custom Colors & Outline**
+
+![Custom Style](outputs/showcase/05-custom-style.png)
+
+```bash
+python3 scripts/generate_image.py \
+  --prompt "abstract flowing ribbons of light, vibrant colors, digital art, 4k" \
+  --title "Creative Vision" \
+  --title-size 65 \
+  --title-color "255,200,50,255" \
+  --outline-width 5 \
+  --outline-color "150,0,200,220" \
+  --output outputs/custom.png \
+  --seed 505
+```
+
+**Configuration:**
+- Title size: `65` (larger than default)
+- Title color: `255,200,50,255` (golden yellow)
+- Outline width: `5` (thicker border)
+- Outline color: `150,0,200,220` (purple with transparency)
+
+---
+
+## Usage Examples
+
+### Basic Usage
+
+Background image only:
+
+```bash
+python3 scripts/generate_image.py \
+  --prompt "tropical beach with turquoise water, white sand, paradise island, 4k" \
+  --output outputs/beach.png
+```
+
+With text overlay (default style):
+
+```bash
+python3 scripts/generate_image.py \
+  --prompt "majestic lion in african savanna, golden hour, wildlife photography, 4k" \
+  --title "Wildlife Photography" \
+  --subtitle "Exploring Nature's Beauty" \
+  --output outputs/lion.png
+```
+
+### Text Customization
+
+Custom font size:
+
+```bash
+python3 scripts/generate_image.py \
+  --prompt "minimalist geometric background, soft gradient, 4k" \
+  --title "Large Title" \
+  --title-size 70 \
+  --subtitle-size 30 \
+  --output outputs/large-text.png
+```
+
+Custom colors:
+
+```bash
+python3 scripts/generate_image.py \
+  --prompt "sunset ocean waves, warm colors, 4k" \
+  --title "Ocean Sunset" \
+  --title-color "255,100,50,255" \
+  --subtitle-color "255,200,150,255" \
+  --output outputs/warm-colors.png
+```
+
+No outline (clean look):
+
+```bash
+python3 scripts/generate_image.py \
+  --prompt "clean white background, minimal, 4k" \
+  --title "Clean Design" \
+  --outline-width 0 \
+  --output outputs/no-outline.png
+```
+
+Text position options:
+
+```bash
+# Bottom (default)
+python3 scripts/generate_image.py \
+  --prompt "landscape scene, 4k" \
+  --title "Bottom Text" \
+  --position bottom \
+  --output outputs/bottom.png
+
+# Center
+python3 scripts/generate_image.py \
+  --prompt "symmetric composition, 4k" \
+  --title "Centered" \
+  --position center \
+  --output outputs/center.png
+
+# Top
+python3 scripts/generate_image.py \
+  --prompt "sky scene, 4k" \
+  --title "Top Text" \
+  --position top \
+  --output outputs/top.png
+```
+
+### Generation Parameters
+
+Control image quality:
+
+```bash
+python3 scripts/generate_image.py \
+  --prompt "detailed portrait, 4k" \
+  --steps 30 \
+  --seed 42 \
+  --output outputs/quality.png
+```
+
+- `--steps`: Inference steps (20-35 recommended, higher = better quality but slower)
+- `--seed`: Random seed for reproducibility (same seed = same output)
+
+---
 
 ## Batch Mode
 
-Create a jobs JSON file (see `scripts/jobs.showcase.json` for examples):
+Create a JSON file with multiple jobs:
 
 ```json
 {
   "jobs": [
     {
-      "name": "example-1",
-      "prompt": "a cute cat on windowsill, soft light, 4k",
+      "name": "cat-portrait",
+      "prompt": "cute cat on windowsill, soft light, 4k",
+      "title": "Feline Grace",
       "output": "outputs/cat.png",
       "seed": 101,
       "steps": 28
     },
     {
-      "title": "Mountain Peak",
-      "subtitle": "Alpine Adventure",
-      "prompt": "snow mountain at sunrise, dramatic clouds, 4k",
+      "name": "mountain-landscape",
+      "prompt": "mountain peaks at sunrise, 4k",
+      "title": "Alpine Heights",
+      "subtitle": "Journey to the Summit",
       "output": "outputs/mountain.png",
       "seed": 202,
       "steps": 28,
@@ -289,16 +245,18 @@ Create a jobs JSON file (see `scripts/jobs.showcase.json` for examples):
 }
 ```
 
-Then run:
+Run batch generation:
 
 ```bash
 python3 scripts/batch_generate.py --jobs your_jobs.json
 ```
 
+---
+
 ## Notes
 
-- **Prompts must be in English** - Stable Diffusion models only understand English.
-- Prompt parameter is **required** - no built-in style templates.
-- The script generates background images directly from your prompts.
-- Text overlay (title/subtitle) is optional and rendered with Pillow for precision.
-- Default image size: 512×384 (4:3 ratio).
+- **Prompts must be in English** - Stable Diffusion models only understand English
+- **Prompt parameter is required** - No built-in style templates
+- **Text overlay is optional** - Omit `--title` to generate background only
+- **Default image size**: 512×384 (4:3 ratio)
+- **Color format**: `R,G,B,A` or `R,G,B` (e.g., `255,0,0,200` for semi-transparent red)

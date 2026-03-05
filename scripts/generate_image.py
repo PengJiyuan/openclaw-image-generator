@@ -4,22 +4,41 @@ AI 封面图生成器
 
 用法：
   # 基本用法（仅背景图）
-  python3 generate_image.py --prompt "a cute cat sitting on a windowsill, soft light" --output cat.png
+  python3 generate_image.py \
+    --prompt "a cute cat sitting on windowsill, soft natural light, 4k" \
+    --output cat.png
 
   # 添加文字覆盖
   python3 generate_image.py \
-    --title "Wildlife Photography" \
-    --subtitle "Exploring Nature's Beauty" \
-    --prompt "a majestic lion in african savanna, golden hour" \
-    --output lion.png
+    --prompt "snow-capped mountain peaks at sunrise, dramatic clouds, 4k" \
+    --title "Alpine Heights" \
+    --subtitle "Journey to the Summit" \
+    --output mountain.png
 
-  # 自定义参数
+  # 自定义文字样式
   python3 generate_image.py \
-    --prompt "futuristic city skyline at night, neon lights" \
-    --steps 30 \
-    --seed 42 \
+    --prompt "futuristic city skyline at night, neon lights, 4k" \
+    --title "Cyber City" \
+    --title-size 60 \
+    --title-color "0,255,255,255" \
+    --outline-color "255,0,255,200" \
+    --outline-width 4 \
     --position center \
     --output city.png
+
+  # 无描边纯白文字
+  python3 generate_image.py \
+    --prompt "minimalist gradient background, soft colors, 4k" \
+    --title "Clean Design" \
+    --outline-width 0 \
+    --output clean.png
+
+  # 自定义推理参数
+  python3 generate_image.py \
+    --prompt "tropical beach, turquoise water, paradise, 4k" \
+    --steps 30 \
+    --seed 101 \
+    --output beach.png
 """
 
 import argparse
@@ -53,151 +72,88 @@ def best_font(text: str, size: int) -> ImageFont.FreeTypeFont:
 
 
 # ──────────────────────────────────────────────
-# 文字渲染层
+# 文字渲染层（纯文字，无背景效果）
 # ──────────────────────────────────────────────
 def add_text_overlay(
     bg: Image.Image,
     title: str,
     subtitle: str = "",
-    position: str = "bottom",   # "bottom" | "center" | "top"
+    position: str = "bottom",
+    title_size: int = None,
+    title_color: tuple = (255, 255, 255, 255),
+    subtitle_size: int = None,
+    subtitle_color: tuple = (230, 230, 230, 255),
+    outline_width: int = 3,
+    outline_color: tuple = (0, 0, 0, 200),
 ) -> Image.Image:
     W, H = bg.size
     img = bg.copy().convert("RGBA")
-
-    # ── 1. 暗角晕影（四角压暗，增加景深构图感）────────
-    vignette = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    vd = ImageDraw.Draw(vignette)
-    steps = 50
-    for i in range(steps):
-        alpha = int((1 - i / steps) ** 1.8 * 140)
-        vd.rectangle([i, i, W - i, H - i], outline=(0, 0, 10, alpha), width=1)
-    img = Image.alpha_composite(img, vignette)
-
-    # ── 2. 字体 & 尺寸 ──────────────────────────────
-    title_size  = max(30, W // 12)
-    title_font  = best_font(title, title_size)
-    max_chars   = max(8, W // (title_size // 2 + 2))
-    title_lines = textwrap.wrap(title, width=max_chars) or [title]
-    line_h      = title_size + 14
-    total_th    = line_h * len(title_lines)
-
-    sub_size = max(14, title_size - 14)
-    sub_font = best_font(subtitle, sub_size) if subtitle else None
-    sub_h    = sub_size + 8 if subtitle else 0
-
-    # ── 3. 计算面板尺寸 & 位置 ────────────────────────
-    pad_x    = 40
-    pad_y    = 26
-    accent_h = 2
-    gap      = 14
-    sep_gap  = 18
-
-    inner_h  = accent_h + gap + total_th + (sep_gap + sub_h if subtitle else 0)
-    panel_w  = int(W * 0.84)
-    panel_h  = inner_h + pad_y * 2
-    panel_x  = (W - panel_w) // 2
-    margin   = int(H * 0.07)
-
-    if position == "bottom":
-        panel_y = H - panel_h - margin
-    elif position == "center":
-        panel_y = (H - panel_h) // 2
-    else:
-        panel_y = margin
-
-    # ── 4. 真实毛玻璃：裁剪背景 → 高斯模糊 → 圆角蒙版贴回 ──
-    panel_box = (panel_x, panel_y, panel_x + panel_w, panel_y + panel_h)
-    bg_crop   = img.crop(panel_box).convert("RGB")
-    bg_blur   = bg_crop.filter(ImageFilter.GaussianBlur(radius=10))
-    # 圆角蒙版
-    blur_mask = Image.new("L", (panel_w, panel_h), 0)
-    ImageDraw.Draw(blur_mask).rounded_rectangle(
-        [0, 0, panel_w, panel_h], radius=18, fill=255
-    )
-    img.paste(bg_blur.convert("RGBA"), (panel_x, panel_y), blur_mask)
-
-    # ── 5. 面板半透明深色覆盖 + 描边 + 外投影 ──────────
-    panel_layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    pd = ImageDraw.Draw(panel_layer)
-    # 外投影（3层扩散）
-    for s in range(3, 0, -1):
-        pd.rounded_rectangle(
-            [panel_x - s, panel_y - s, panel_x + panel_w + s, panel_y + panel_h + s],
-            radius=18 + s, outline=(0, 0, 0, 22), width=1,
-        )
-    # 主面板
-    pd.rounded_rectangle(
-        [panel_x, panel_y, panel_x + panel_w, panel_y + panel_h],
-        radius=18, fill=(6, 8, 20, 150),
-    )
-    # 内高光描边
-    pd.rounded_rectangle(
-        [panel_x + 1, panel_y + 1, panel_x + panel_w - 1, panel_y + panel_h - 1],
-        radius=17, outline=(255, 255, 255, 28), width=1,
-    )
-    img = Image.alpha_composite(img, panel_layer)
     draw = ImageDraw.Draw(img)
 
-    # ── 6. 顶部渐变强调线（青→靛蓝，两端淡出）────────
-    ax       = panel_x + pad_x + 8
-    ay       = panel_y + pad_y
-    line_len = panel_w - (pad_x + 8) * 2
-    segs     = 60
-    for s in range(segs):
-        t  = s / segs
-        # 颜色插值：cyan(80,200,255) → indigo(120,100,255)
-        r  = int(80  + (120 - 80)  * t)
-        g  = int(200 + (100 - 200) * t)
-        b  = 255
-        # 两端 fade（前10%和后10%渐隐）
-        edge  = min(t / 0.12, 1.0, (1 - t) / 0.12)
-        alpha = int(edge * 220)
-        sx = ax + int(t * line_len)
-        ex = ax + int((t + 1 / segs) * line_len) + 1
-        draw.line([(sx, ay), (ex, ay)], fill=(r, g, b, alpha), width=2)
+    # ── 1. 字体 & 尺寸 ──────────────────────────────
+    # 标题字号：用户指定 > 自动计算
+    if title_size is None:
+        title_size = max(36, W // 10)
+    title_font  = best_font(title, title_size)
+    max_chars   = max(10, W // (title_size // 2))
+    title_lines = textwrap.wrap(title, width=max_chars) or [title]
+    line_h      = int(title_size * 1.3)  # 行高
+    total_th    = line_h * len(title_lines)
 
-    # ── 7. 标题文字（5层散射阴影 + 纯白主字）─────────
-    text_y = ay + accent_h + gap
+    # 副标题字号：用户指定 > 标题的 40%
+    if subtitle_size is None:
+        sub_size = int(title_size * 0.4)
+    else:
+        sub_size = subtitle_size
+    sub_font = best_font(subtitle, sub_size) if subtitle else None
+    sub_h    = int(sub_size * 1.4) if subtitle else 0
+
+    # ── 2. 计算文字块位置 ────────────────────────────
+    gap = int(title_size * 0.5)  # 标题和副标题之间的间距
+    total_h = total_th + (gap + sub_h if subtitle else 0)
+    margin = int(H * 0.08)
+
+    if position == "bottom":
+        text_y = H - total_h - margin
+    elif position == "center":
+        text_y = (H - total_h) // 2
+    else:  # top
+        text_y = margin
+
+    # ── 3. 渲染标题（带描边效果提升可读性）─────────
     for i, line in enumerate(title_lines):
         bbox = draw.textbbox((0, 0), line, font=title_font)
-        lw   = bbox[2] - bbox[0]
-        x    = (W - lw) // 2
-        y    = text_y + i * line_h
-        # 阴影从外到内5层扩散
-        shadows = [(4, 4, 45), (3, 3, 60), (2, 2, 80), (1, 2, 100), (1, 1, 130)]
-        for ox, oy, a in shadows:
-            draw.text((x + ox, y + oy), line, font=title_font, fill=(0, 0, 0, a))
+        lw = bbox[2] - bbox[0]
+        x = (W - lw) // 2
+        y = text_y + i * line_h
+        
+        # 描边效果
+        if outline_width > 0:
+            for ox in range(-outline_width, outline_width + 1):
+                for oy in range(-outline_width, outline_width + 1):
+                    if ox != 0 or oy != 0:
+                        draw.text((x + ox, y + oy), line, font=title_font, fill=outline_color)
+        
         # 主文字
-        draw.text((x, y), line, font=title_font, fill=(255, 255, 255, 255))
+        draw.text((x, y), line, font=title_font, fill=title_color)
 
-    # ── 8. 菱形点分隔符 + 两侧细线 + 副标题 ──────────
+    # ── 4. 渲染副标题 ──────────────────────────────
     if subtitle and sub_font:
-        sep_y = text_y + total_th + 6
-        mid_x = W // 2
-        d     = 3  # 菱形半径
-
-        # 两侧细线
-        fade_len = panel_w // 5
-        draw.line([(mid_x - d * 3 - fade_len, sep_y), (mid_x - d * 3, sep_y)],
-                  fill=(255, 255, 255, 35), width=1)
-        draw.line([(mid_x + d * 3, sep_y), (mid_x + d * 3 + fade_len, sep_y)],
-                  fill=(255, 255, 255, 35), width=1)
-        # 居中菱形
-        draw.polygon([
-            (mid_x,     sep_y - d),
-            (mid_x + d, sep_y),
-            (mid_x,     sep_y + d),
-            (mid_x - d, sep_y),
-        ], fill=(140, 195, 255, 140))
-
-        # 副标题
+        sub_y = text_y + total_th + gap
         bbox = draw.textbbox((0, 0), subtitle, font=sub_font)
-        sw   = bbox[2] - bbox[0]
-        sx   = (W - sw) // 2
-        sy   = sep_y + d + 10
-        # 副标题轻阴影
-        draw.text((sx + 1, sy + 1), subtitle, font=sub_font, fill=(0, 0, 0, 80))
-        draw.text((sx, sy), subtitle, font=sub_font, fill=(175, 210, 248, 200))
+        sw = bbox[2] - bbox[0]
+        sx = (W - sw) // 2
+        
+        # 副标题描边（宽度稍小）
+        sub_outline_width = max(1, outline_width - 1)
+        if sub_outline_width > 0:
+            for ox in range(-sub_outline_width, sub_outline_width + 1):
+                for oy in range(-sub_outline_width, sub_outline_width + 1):
+                    if ox != 0 or oy != 0:
+                        draw.text((sx + ox, sub_y + oy), subtitle, font=sub_font, fill=outline_color)
+        
+        # 副标题主文字
+        draw.text((sx, sub_y), subtitle, font=sub_font, fill=subtitle_color)
 
     return img.convert("RGB")
 
@@ -260,6 +216,7 @@ def main():
         description="AI 封面图生成器（Tiny SD + Pillow）",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
+    # 基本参数
     parser.add_argument("--prompt",   required=True, help="背景图 prompt (英文)")
     parser.add_argument("--title",    default="",   help="图片主标题文字 (可选)")
     parser.add_argument("--subtitle", default="",   help="副标题文字 (可选)")
@@ -268,7 +225,34 @@ def main():
     parser.add_argument("--seed",     type=int, default=42, help="随机种子 (默认 42)")
     parser.add_argument("--position", default="bottom", choices=["bottom", "center", "top"],
                         help="文字位置 (默认 bottom)")
+    
+    # 文字样式参数
+    parser.add_argument("--title-size", type=int, default=None, help="标题字号 (默认自动计算)")
+    parser.add_argument("--title-color", default="255,255,255,255", help="标题颜色 RGBA (默认白色)")
+    parser.add_argument("--subtitle-size", type=int, default=None, help="副标题字号 (默认标题的40%%)")
+    parser.add_argument("--subtitle-color", default="230,230,230,255", help="副标题颜色 RGBA (默认浅灰)")
+    parser.add_argument("--outline-width", type=int, default=3, help="描边宽度 (默认 3，0为无描边)")
+    parser.add_argument("--outline-color", default="0,0,0,200", help="描边颜色 RGBA (默认半透明黑)")
+    
     args = parser.parse_args()
+    
+    # 解析颜色参数
+    def parse_color(color_str: str) -> tuple:
+        try:
+            parts = [int(x.strip()) for x in color_str.split(',')]
+            if len(parts) == 3:
+                return tuple(parts + [255])  # 添加默认 alpha
+            elif len(parts) == 4:
+                return tuple(parts)
+            else:
+                raise ValueError()
+        except:
+            print(f"⚠️  颜色格式错误: {color_str}，使用默认值")
+            return (255, 255, 255, 255)
+    
+    title_color = parse_color(args.title_color)
+    subtitle_color = parse_color(args.subtitle_color)
+    outline_color = parse_color(args.outline_color)
 
     # 检测中文：SD 模型只支持英文 prompt
     prompt = args.prompt.strip()
@@ -287,7 +271,15 @@ def main():
     title = args.title.strip()
     subtitle = args.subtitle.strip()
     if title:
-        final = add_text_overlay(bg, title, subtitle, args.position)
+        final = add_text_overlay(
+            bg, title, subtitle, args.position,
+            title_size=args.title_size,
+            title_color=title_color,
+            subtitle_size=args.subtitle_size,
+            subtitle_color=subtitle_color,
+            outline_width=args.outline_width,
+            outline_color=outline_color
+        )
         print("已叠加文字层。")
     elif subtitle:
         print("⚠️ 检测到 subtitle 但未提供 title，已忽略 subtitle，仅输出背景图。")

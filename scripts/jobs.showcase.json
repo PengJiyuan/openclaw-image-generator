@@ -11,79 +11,48 @@
       "position": "bottom"
     },
     {
-      "name": "02-animal-lion",
-      "prompt": "majestic male lion with flowing mane, african savanna at golden hour, warm sunset light, shallow depth of field, wildlife photography, 4k",
-      "output": "outputs/showcase/02-animal-lion.png",
-      "seed": 202,
-      "steps": 28
-    },
-    {
-      "name": "03-landscape-mountain",
+      "name": "02-landscape-mountain",
       "title": "Alpine Heights",
       "subtitle": "Journey to the Summit",
       "prompt": "snow-capped mountain peaks at sunrise, dramatic clouds, alpine lake reflection, vibrant orange and pink sky, landscape photography, 4k",
-      "output": "outputs/showcase/03-landscape-mountain.png",
+      "output": "outputs/showcase/02-landscape-mountain.png",
+      "seed": 202,
+      "steps": 28,
+      "position": "bottom"
+    },
+    {
+      "name": "03-city-skyline",
+      "title": "Urban Pulse",
+      "subtitle": "夜色中的现代都市",
+      "prompt": "modern city skyline at blue hour, skyscrapers with illuminated windows, reflections on river, cinematic composition, architectural photography, 4k",
+      "output": "outputs/showcase/03-city-skyline.png",
       "seed": 303,
       "steps": 28,
       "position": "bottom"
     },
     {
-      "name": "04-landscape-ocean",
-      "prompt": "tropical beach with turquoise water, white sand, palm trees swaying, blue sky with fluffy clouds, paradise island, 4k",
-      "output": "outputs/showcase/04-landscape-ocean.png",
-      "seed": 404,
-      "steps": 28
-    },
-    {
-      "name": "05-city-skyline",
-      "title": "Urban Pulse",
-      "subtitle": "夜色中的现代都市",
-      "prompt": "modern city skyline at blue hour, skyscrapers with illuminated windows, reflections on river, cinematic composition, architectural photography, 4k",
-      "output": "outputs/showcase/05-city-skyline.png",
-      "seed": 505,
-      "steps": 28,
-      "position": "bottom"
-    },
-    {
-      "name": "06-city-street",
-      "prompt": "rainy city street at night, neon signs reflecting on wet pavement, bokeh lights, cyberpunk aesthetic, moody atmosphere, 4k",
-      "output": "outputs/showcase/06-city-street.png",
-      "seed": 606,
-      "steps": 28
-    },
-    {
-      "name": "07-scifi-space",
+      "name": "04-scifi-space",
       "title": "Beyond Earth",
       "subtitle": "Exploring the Cosmos",
       "prompt": "astronaut floating in space with earth in background, stunning nebula and stars, cosmic vista, cinematic lighting, science fiction, 4k",
-      "output": "outputs/showcase/07-scifi-space.png",
-      "seed": 707,
+      "output": "outputs/showcase/04-scifi-space.png",
+      "seed": 404,
       "steps": 28,
       "position": "center"
     },
     {
-      "name": "08-scifi-robot",
-      "prompt": "futuristic humanoid robot with glowing blue eyes, sleek metallic surface, high-tech laboratory background, dramatic lighting, sci-fi concept art, 4k",
-      "output": "outputs/showcase/08-scifi-robot.png",
-      "seed": 808,
-      "steps": 28
-    },
-    {
-      "name": "09-vehicle-sports-car",
-      "title": "Speed Demon",
-      "subtitle": "Pure Performance",
-      "prompt": "red luxury sports car on coastal highway, motion blur, golden hour lighting, dramatic sky, automotive photography, 4k",
-      "output": "outputs/showcase/09-vehicle-sports-car.png",
-      "seed": 909,
+      "name": "05-custom-style",
+      "title": "Creative Vision",
+      "prompt": "abstract flowing ribbons of light, vibrant colors, digital art, 4k",
+      "output": "outputs/showcase/05-custom-style.png",
+      "seed": 505,
       "steps": 28,
-      "position": "top"
-    },
-    {
-      "name": "10-food-coffee",
-      "prompt": "steaming cup of latte art coffee on rustic wooden table, morning light through window, cozy cafe atmosphere, food photography, 4k",
-      "output": "outputs/showcase/10-food-coffee.png",
-      "seed": 1010,
-      "steps": 28
+      "position": "bottom",
+      "title_size": 65,
+      "title_color": "255,200,50,255",
+      "outline_width": 5,
+      "outline_color": "150,0,200,220"
     }
   ]
 }
+
