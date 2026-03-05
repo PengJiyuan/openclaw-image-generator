@@ -1,25 +1,25 @@
 ---
 name: tiny-sd-cover-generator
-description: Generate blog cover images with Tiny Stable Diffusion plus Pillow text overlay for Hugo posts. Use this skill whenever the user asks to make AI article covers, regenerate covers, tune prompt style, batch-generate post images, or improve text-overlay aesthetics. Prefer the bundled scripts under tiny-sd-cover-generator/scripts.
+description: Generate title-ready cover images with Tiny Stable Diffusion plus Pillow text overlay. Use this skill whenever users ask to create AI covers, regenerate visual assets, improve prompt quality, batch-generate branded thumbnails, or polish text-overlay aesthetics for blogs, docs, social posts, videos, or presentations.
 ---
 
 # Tiny SD Cover Generator
 
-Generate production-ready article cover images using this pipeline:
+Generate production-ready cover images using this pipeline:
 
 1. Tiny Stable Diffusion generates background.
-2. Pillow renders title/subtitle text cleanly.
-3. Hugo frontmatter cover path points to generated image.
+2. Pillow renders title/subtitle text only when text fields are provided.
+3. The output image can be used in any system (static site, CMS, social, docs, slides).
 
 ## Trigger Conditions
 
 Use this skill when user intent includes:
 
-- "给文章生成封面"
-- "重新生成所有配图"
-- "优化封面 prompt"
+- "给文章/视频/社媒生成封面"
+- "批量重生成视觉素材"
+- "优化 AI 绘图 prompt"
 - "Tiny SD / Stable Diffusion + Pillow"
-- "列表页封面图" or "static/articles"
+- "标题文字和背景融合不好"
 
 ## Skill Package Layout
 
@@ -38,8 +38,8 @@ tiny-sd-cover-generator/
 
 - Script path: `tiny-sd-cover-generator/scripts/generate_image.py`
 - Batch helper: `tiny-sd-cover-generator/scripts/batch_generate.py`
-- Output directory: `static/articles/`
-- Article markdown: `content/articles/*.md`
+- Jobs file: `tiny-sd-cover-generator/scripts/jobs.example.json`
+- Output directory can be any custom path.
 
 If these paths differ, adapt commands to actual repository paths.
 
@@ -55,13 +55,13 @@ Note: PyTorch backend auto-selects `mps`/`cuda`/`cpu` at runtime.
 
 ## Standard Workflow
 
-### 1) Read article and extract visual intent
+### 1) Read source content and extract visual intent
 
-For each target post, read:
+For each target item, read:
 
 - `title`
 - `description`
-- first 2-4 section headings and key paragraphs
+- key bullets / headings / context text
 
 Then summarize in one line:
 
@@ -89,6 +89,11 @@ Negative prompt is handled by the script; do not duplicate unless asked.
 
 ### 3) Generate image with text overlay
 
+Text fields are optional.
+
+- If `title` is provided: render title (and optional subtitle).
+- If `title` and `subtitle` are both missing: output background image only.
+
 Single image command template:
 
 ```bash
@@ -96,10 +101,18 @@ python3 tiny-sd-cover-generator/scripts/generate_image.py \
   --title "<Chinese or English title>" \
   --subtitle "<optional subtitle>" \
   --prompt "<English prompt>" \
-  --output "static/articles/<slug>-cover.png" \
+  --output "outputs/<name>.png" \
   --steps 28 \
   --seed 42 \
   --position bottom
+```
+
+Background-only template:
+
+```bash
+python3 tiny-sd-cover-generator/scripts/generate_image.py \
+  --prompt "abstract flowing light ribbons, blue and cyan particles" \
+  --output "outputs/background-only.png"
 ```
 
 Default tuning:
@@ -114,49 +127,33 @@ Quick test:
 python3 tiny-sd-cover-generator/scripts/generate_image.py \
   --title "Hello" \
   --prompt "abstract data flow, glowing particles" \
-  --output "static/articles/custom-cover.png"
+  --output "outputs/custom-cover.png"
 ```
 
-### 4) Update frontmatter cover block
+### 4) Verify output quality
 
-Ensure each post has:
-
-```yaml
-cover:
-  image: "/articles/<slug>-cover.png"
-  alt: "<title short text>"
-  caption: "由 Tiny Stable Diffusion 生成"
-```
-
-### 5) Verify quickly
-
-Run Hugo build check:
-
-```bash
-hugo --minify
-```
-
-If preview server runs, inspect list page and article page for:
+Inspect each generated image for:
 
 - text readability
 - panel placement
 - no overflow/truncation
-- style consistency across covers
+- style consistency across all assets
 
 ## Batch Generation Mode
 
-When user asks to regenerate all article covers:
+When user asks to regenerate a batch of assets:
 
-1. Read each target post.
+1. Prepare a jobs JSON file.
 2. Draft one custom English prompt per post.
-3. Edit `tiny-sd-cover-generator/scripts/batch_generate.py` jobs list with per-article prompt + seed.
+3. Set `prompt/output/seed` for each item, and add `title/subtitle` only when text overlay is needed.
 4. Run:
 
 ```bash
-python3 tiny-sd-cover-generator/scripts/batch_generate.py --repo-root . --output-dir static/articles
+python3 tiny-sd-cover-generator/scripts/batch_generate.py \
+  --jobs tiny-sd-cover-generator/scripts/jobs.example.json
 ```
 
-5. Report outputs generated under `static/articles/`.
+5. Report all generated output paths.
 
 ## Prompt Quality Rules
 
@@ -183,16 +180,16 @@ Avoid:
   - keep `--position bottom`
   - adjust subtitle length
   - regenerate with calmer background prompt
-- Build is fine but cover not visible:
-  - check `cover.image` uses `/articles/...`
-  - confirm file exists in `static/articles/`
+- Asset path looks wrong in your app:
+  - verify actual output path and downstream config
+  - use absolute or project-relative path consistently
 
 ## Response Style When Using This Skill
 
 When executing tasks, provide:
 
-1. Per-article one-line content summary.
+1. Per-item one-line content summary.
 2. Final English prompt used.
 3. Output image path.
-4. Any changed frontmatter file paths.
+4. Any changed integration file paths (if any).
 5. Optional seed notes for reproducibility.

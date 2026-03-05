@@ -320,7 +320,7 @@ def main():
         description="AI 封面图生成器（Tiny SD + Pillow）",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("--title",    required=True,  help="图片主标题文字")
+    parser.add_argument("--title",    default="",     help="图片主标题文字（可选）")
     parser.add_argument("--subtitle", default="",     help="副标题文字（可选）")
     parser.add_argument("--style",    default="tech",
                         choices=list(PROMPT_TEMPLATES.keys()),
@@ -358,8 +358,18 @@ def main():
     # 1. 生成背景
     bg = generate_background(prompt, args.steps, args.seed)
 
-    # 2. 叠加文字
-    final = add_text_overlay(bg, args.title, args.subtitle, args.position)
+    # 2. 按需叠加文字（title/subtitle 都为空时仅输出背景图）
+    title = args.title.strip()
+    subtitle = args.subtitle.strip()
+    if title:
+        final = add_text_overlay(bg, title, subtitle, args.position)
+        print("已叠加文字层。")
+    elif subtitle:
+        print("⚠️ 检测到 subtitle 但未提供 title，已忽略 subtitle，仅输出背景图。")
+        final = bg.convert("RGB")
+    else:
+        print("未提供 title/subtitle，仅输出背景图。")
+        final = bg.convert("RGB")
 
     # 3. 保存
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
