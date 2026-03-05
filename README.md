@@ -1,30 +1,18 @@
-# tiny-sd-cover-generator
+# OpenClaw Image Generator
 
 Universal Tiny SD + Pillow cover image generator skill.
 
-This repository is not tied to Hugo. You can use it for:
+You can use it for:
 - blog covers
 - social media thumbnails
 - documentation headers
 - video cover images
 - slide title cards
 
-## Structure
-
-```text
-tiny-sd-cover-generator/
-	SKILL.md
-	scripts/
-		generate_image.py
-		batch_generate.py
-		jobs.example.json
-		requirements.txt
-```
-
 ## Install
 
 ```bash
-pip install -r scripts/requirements.txt
+npx skills add https://github.com/PengJiyuan/openclaw-image-generator
 ```
 
 ## Gallery
